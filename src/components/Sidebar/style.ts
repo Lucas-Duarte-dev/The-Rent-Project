@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { MdAdd, MdDashboard, MdHome, MdPerson, MdStar } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export const SidebarContainer = styled.div`
   width: 18rem;
@@ -29,7 +30,7 @@ export const SidebarContainer = styled.div`
   }
 `;
 
-export const SideContent = styled.button`
+export const SideContent = styled(Link)`
   display: flex;
   align-items: center;
   width: 100%;
@@ -52,7 +53,7 @@ export const SideContent = styled.button`
     background: #e8e8e8;
   }
 `;
-export const Create = styled.button`
+export const Create = styled(Link)`
   margin-top: 5rem;
   width: 100%;
   height: 4.5rem;
@@ -62,6 +63,7 @@ export const Create = styled.button`
   font-size: 1rem;
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
   font-weight: bold;
 `;

@@ -11,7 +11,7 @@ export default function Header() {
           <a href="/">Início</a>
         </li>
         <li>
-          <a href="/">Cadastro</a>
+          <a href="/sign-up">Cadastro</a>
         </li>
         <li>
           <a href="/">Casas</a>

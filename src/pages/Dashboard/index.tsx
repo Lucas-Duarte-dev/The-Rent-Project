@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
-
+import PostModal from "../../components/Post";
 import { useFetch } from "../../hooks/useFetch";
-import { Card, Container, EmailIcon, Profile, WhatsappIcon } from "./style";
+import api from "../../services/api";
+import {
+  Card,
+  Container,
+  Profile,
+  Post,
+  WhatsappIcon,
+  HouseIcon,
+  HotelIcon,
+  OpenPostModal,
+  LinkToFavorite,
+} from "./style";
+
+import { useUser } from "../../context/UserContext";
 
 interface User {
   id: string;
@@ -14,9 +27,36 @@ interface User {
   updated_at: Date;
 }
 
+interface PostData {
+  id: string;
+  address_type: "Casa" | "Apartamento";
+  title: string;
+  description: string;
+  user_id: string;
+  images: Array<{
+    id: string;
+    url: string;
+  }>;
+  created_at: Date;
+  updated_at: Date;
+  user: User;
+}
+
 const Dashboard: React.FC = () => {
+  const { handleActiveModal, isActive } = useUser();
   const token = localStorage.getItem("@Permission:token");
   const { data } = useFetch<User>("/login", token);
+
+  const [post, setPost] = useState<PostData[]>();
+
+  useEffect(() => {
+    async function getPost() {
+      const response = await api.get(`/posts/${data?.id}`);
+
+      setPost(response.data);
+    }
+    getPost();
+  }, [data?.id, isActive]);
 
   if (!data) {
     return (
@@ -33,23 +73,32 @@ const Dashboard: React.FC = () => {
     );
   }
 
-  function createImage() {
-    const inicial = data?.name.substring(2, 0).toUpperCase();
+  function createImage(name: string | undefined) {
+    const inicial = name?.substring(2, 0).toUpperCase();
 
     return inicial;
   }
 
+  const firstPost = post?.pop();
+
+  const post_id = firstPost?.id;
+
   return (
     <Container>
-      <Sidebar />
+      {isActive && <PostModal />}
+      <Sidebar user_id={data.id} />
       <Card>
-        <h1>
-          Olá, <span>{data.username}</span>
-        </h1>
+        <div className="container-information">
+          <h1>Dashboard</h1>
+          <span>
+            Olá, <strong>{data?.username}</strong>
+          </span>
+        </div>
+
         <Profile>
           <div className="containerImage">
             <div className="contain">
-              <span>{createImage()}</span>
+              <span>{createImage(data?.name)}</span>
               <p>{data.name}</p>
             </div>
           </div>
@@ -57,7 +106,7 @@ const Dashboard: React.FC = () => {
             <span>
               <WhatsappIcon />{" "}
               <a
-                href={`https://api.whatsapp.com/send?phone=${data.phone}`}
+                href={`https://api.whatsapp.com/send?phone=55${data.phone}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -67,6 +116,36 @@ const Dashboard: React.FC = () => {
           </div>
         </Profile>
       </Card>
+      <Post>
+        <div className="content-card">
+          <span>Último Post</span>
+          <OpenPostModal onClick={() => handleActiveModal(post_id)}>
+            <div className="owner">
+              <span>{createImage(firstPost?.user.username)}</span>
+              <p>{firstPost?.user.username}</p>
+            </div>
+
+            <h3>
+              {firstPost?.address_type === "Casa" ? (
+                <HouseIcon />
+              ) : (
+                <HotelIcon />
+              )}{" "}
+              {firstPost?.address_type}
+            </h3>
+            <div className="information">
+              <span>{firstPost?.title}</span>
+              <p>{firstPost?.description}</p>
+            </div>
+          </OpenPostModal>
+        </div>
+        <div className="content-card">
+          <span>Quantidade de posts</span>
+          <LinkToFavorite to={`/`}>
+            <span>{post?.length}</span>
+          </LinkToFavorite>
+        </div>
+      </Post>
     </Container>
   );
 };

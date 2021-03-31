@@ -33,4 +33,13 @@ export const GlobalStyles = createGlobalStyle`
     *, a {
         text-decoration: none;
     }
+
+    @keyframes slide {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 `;

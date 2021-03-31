@@ -55,11 +55,6 @@ export const InputBlock = styled.div`
 
   & > div input {
     width: 100%;
-    border: 2px solid ${({ theme }) => theme.color.border};
-    height: 3.3rem;
-    border-radius: 0.5rem;
-    font-size: 1.1rem;
-    padding: 0 0 0 3rem;
   }
 
   & > button {

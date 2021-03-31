@@ -27,14 +27,9 @@ export const Content = styled.div`
       align-items: center;
       justify-content: space-between;
 
-      & > a:first-child {
+      & > a {
         background-color: ${({ theme }) => theme.color.green};
         color: ${({ theme }) => theme.color.white};
-      }
-      & > a:last-child {
-        background: transparent;
-        border: 1px solid ${({ theme }) => theme.color.border};
-        color: ${({ theme }) => theme.color.text};
       }
     }
   }
@@ -53,6 +48,20 @@ export const Button = styled(Link)`
   }
 `;
 
+export const LoginButton = styled.button`
+  padding: 1.8rem 5rem;
+  border-radius: 7px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  transition: all 0.2s ease-in;
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.color.border};
+  color: ${({ theme }) => theme.color.text};
+  &:hover,
+  &:focus {
+    background: #e0f9fb;
+  }
+`;
 export const Title = styled.h1`
   width: 100%;
   color: ${({ theme }) => theme.color.title};

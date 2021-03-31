@@ -9,7 +9,11 @@ import {
   PlusIcon,
 } from "./style";
 
-export default function Sidebar() {
+interface User {
+  user_id: string;
+}
+
+export default function Sidebar({ user_id }: User) {
   function changeClass(pathname: string) {
     return window.location.pathname === pathname ? "active" : "";
   }
@@ -18,26 +22,26 @@ export default function Sidebar() {
     <SidebarContainer>
       <img src="/icons/logo.svg" alt="logomarca" />
       <div className="space">
-        <SideContent className={changeClass("/dashboard")}>
+        <SideContent to="/dashboard" className={changeClass("/dashboard")}>
           <DashboradIcon />
           <span>Dashboard</span>
         </SideContent>
-        <SideContent>
+        <SideContent to="/announce">
           <HomeIcon />
           <span>Meus anúncios</span>
         </SideContent>
 
-        <SideContent>
+        <SideContent to="/favorite">
           <StarIcon />
           <span>Meus favoritos</span>
         </SideContent>
 
-        <SideContent>
+        <SideContent to="/profile">
           <UserIcon />
           <span>Meu perfil</span>
         </SideContent>
 
-        <Create>
+        <Create to={`/create-post/${user_id}`}>
           <PlusIcon /> Criar um novo anúncio
         </Create>
       </div>

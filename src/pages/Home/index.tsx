@@ -1,7 +1,16 @@
 import { useState } from "react";
-import { Container, Content, Title, Description, Block, Button } from "./style";
+import {
+  Container,
+  Content,
+  Title,
+  Description,
+  Block,
+  Button,
+  LoginButton,
+} from "./style";
 
 import SearchBox from "../../components/SearchBlock";
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
   const [isActive, setIsActive] = useState(false);
@@ -10,6 +19,15 @@ export default function Home() {
     return setIsActive(!isActive);
   }
 
+  const history = useHistory();
+  function handleLogin() {
+    const token = localStorage.getItem("@Permission:token");
+    if (token) {
+      return history.push("/dashboard");
+    }
+
+    return history.push("/login");
+  }
   return (
     <Container>
       <Content>
@@ -25,7 +43,7 @@ export default function Home() {
           </div>
           <div className="contain_button">
             <Button to="/sign-up">Crie uma conta</Button>
-            <Button to="/login">Entrar</Button>
+            <LoginButton onClick={handleLogin}>Entrar</LoginButton>
           </div>
         </section>
         <Block>
