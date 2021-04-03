@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
-import PostModal from "../../components/Post";
+import PostModal from "../../components/PostModal";
 import { useFetch } from "../../hooks/useFetch";
 import api from "../../services/api";
 import {
@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
       setPost(response.data);
     }
     getPost();
-  }, [data?.id, isActive]);
+  }, [data?.id, isActive, post]);
 
   if (!data) {
     return (

@@ -26,7 +26,10 @@ export default function Sidebar({ user_id }: User) {
           <DashboradIcon />
           <span>Dashboard</span>
         </SideContent>
-        <SideContent to="/announce">
+        <SideContent
+          to={`/announce/${user_id}`}
+          className={changeClass(`/announce/${user_id}`)}
+        >
           <HomeIcon />
           <span>Meus anúncios</span>
         </SideContent>

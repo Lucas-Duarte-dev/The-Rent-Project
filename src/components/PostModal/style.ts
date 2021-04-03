@@ -11,11 +11,12 @@ export const PostContainer = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 200;
+  z-index: 400;
 `;
 
 export const Card = styled.div`
   display: flex;
+
   flex-direction: column;
   width: 1200px;
   padding: 2rem;
@@ -23,6 +24,7 @@ export const Card = styled.div`
   border-radius: 0.8rem;
   margin: 0 auto;
   overflow-y: auto;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 
   & > .post-header {
     width: 100%;
@@ -44,7 +46,7 @@ export const Card = styled.div`
       margin: 1.5rem 0 3rem 0;
       & > img {
         width: 100%;
-        height: 20rem;
+        height: 30rem;
         object-fit: cover;
         border-radius: 1rem;
       }

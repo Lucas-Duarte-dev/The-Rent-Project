@@ -1,4 +1,5 @@
 import { Route, Switch } from "react-router-dom";
+import Announce from "../pages/Announce";
 import CreatePost from "../pages/CreatePost";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
@@ -18,6 +19,7 @@ export default function Routes() {
         role="ROLE_USER, ROLE_ADMIN"
       />
       <PrivateRoutes path="/create-post/:user_id" component={CreatePost} />
+      <PrivateRoutes path="/announce/:user_id" component={Announce} />
     </Switch>
   );
 }

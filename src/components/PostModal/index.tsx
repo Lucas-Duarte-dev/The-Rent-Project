@@ -31,7 +31,7 @@ interface PostData {
   user: User;
 }
 
-export default function Post() {
+export default function PostModal() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { handleActiveModal } = useUser();
   const post_id = localStorage.getItem("postId");
